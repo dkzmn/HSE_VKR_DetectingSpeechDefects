@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_24_hmm_proxy,Phoneme-level HMM/GMM,Class-conditional GMM sequence model,0.6666666666666666,0.6436401418971676,0.5530546623794212,0.7337273443656421,0.48863636363636365,0.6370370370370371,"gmm_hmm_like/n_comp=4,cov=diag",,

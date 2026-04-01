@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_12_fluentnet,FluentNet-style (waveform + mel),FluentNetClassifier,0.7050359712230215,0.6862647949353151,0.6095238095238096,0.784896243761492,0.5333333333333333,0.7111111111111111,"two-branch 1D CNN + 2D CNN, 10s, branch_dim=128",160626,16037.376356830006

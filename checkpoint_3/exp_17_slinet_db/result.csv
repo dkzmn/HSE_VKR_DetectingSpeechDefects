@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_17_slinet_db,dB STFT + CNN,SLINet dB CNN,0.6882494004796164,0.6467022940563087,0.5255474452554745,0.733096926713948,0.5179856115107914,0.5333333333333333,STFT magnitude dB,552658,669.8663535300002

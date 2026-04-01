@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_31_dysarthria_profiles,Data-driven dysarthria profiles,Random Forest,0.7529976019184652,0.6811003452500278,0.5296803652968036,0.7404255319148936,0.6904761904761905,0.42962962962962964,"mfcc/grid={'clf__max_depth': 12, 'clf__min_samples_leaf': 5, 'clf__n_estimators': 400}",,56.24264116901031

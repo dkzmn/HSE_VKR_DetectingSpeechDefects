@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_06_lstm,BiLSTM по MFCC,BiLSTM (MFCC),0.7026378896882494,0.6563795853269537,0.5303030303030303,0.7170081428946676,0.5426356589147286,0.5185185185185185,"n_mfcc=20, max_frames=320, hidden=128, layers=2, epochs=50",549394,112.15973925299477

@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_33_discrete_token_proxy,Discrete token models,Token histogram+bigram LogReg,0.6714628297362111,0.6417997479449993,0.5387205387205387,0.6832151300236408,0.49382716049382713,0.5925925925925926,"token_kmeans_k=64,grid={'clf__C': 0.1}",,

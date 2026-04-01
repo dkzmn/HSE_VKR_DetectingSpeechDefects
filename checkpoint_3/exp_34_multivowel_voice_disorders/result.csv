@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_34_multivowel_voice_disorders,Multicategory voice disorders from mel,MelCNN2d,0.7673860911270983,0.7210202153266799,0.6072874493927125,0.7784869976359339,0.6696428571428571,0.5555555555555556,mel 2D CNN proxy,440018,72.0821538750024

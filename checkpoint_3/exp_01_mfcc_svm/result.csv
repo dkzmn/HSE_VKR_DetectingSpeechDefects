@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_01_mfcc_svm,SVM на MFCC,SVM (RBF),0.697841726618705,0.6680104129808422,0.5684931506849316,0.752167060677699,0.5286624203821656,0.6148148148148148,"n_mfcc=20, GridSearchCV {'clf__C': 1.0, 'clf__gamma': 'scale'}",,27.141248882981017

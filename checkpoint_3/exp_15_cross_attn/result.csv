@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_15_cross_attn,CNN-BiLSTM cross-attention,CrossAttnCNNBiLSTM,0.6834532374100719,0.6697307156914512,0.6024096385542169,0.7673233517205149,0.5076142131979695,0.7407407407407407,"mel→CNN→BiLSTM→learnable Q cross-attn→FC, Nature Sci.Rep. 2025",718546,246.81038734002504

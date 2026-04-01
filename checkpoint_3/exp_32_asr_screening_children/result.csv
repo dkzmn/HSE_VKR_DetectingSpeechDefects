@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_32_asr_screening_children,ASR screening (CTC diagnostics),CTC diagnostics + LogReg,0.6402877697841727,0.6095505617977528,0.5,0.693538219070134,0.45454545454545453,0.5555555555555556,wav2vec2_ctc_diagnostics/grid={'clf__C': 3.0},,

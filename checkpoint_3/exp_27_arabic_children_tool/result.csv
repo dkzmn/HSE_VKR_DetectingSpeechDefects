@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_27_arabic_children_tool,27 - Arabic children articulation tool,MLP,0.6906474820143885,0.6460637562917393,0.5204460966542751,0.7088783819280273,0.5223880597014925,0.5185185185185185,"articulation_tool/mlp_grid={'mlp__alpha': 0.001, 'mlp__learning_rate_init': 0.0003}",,

@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_26_preschool_diagnostics,Preschool diagnostics (AI),SVM (RBF),0.7386091127098321,0.7020901470115944,0.5977859778597786,0.7874835828736538,0.5955882352941176,0.6,"asr_proxy/grid={'clf__C': 1.0, 'clf__gamma': 'scale'}",,15.66099696099991

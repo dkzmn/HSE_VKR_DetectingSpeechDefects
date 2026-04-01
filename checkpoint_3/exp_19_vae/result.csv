@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_19_vae,VAE + classifier,Mel VAE,0.6906474820143885,0.6733344264087009,0.5981308411214953,0.7549251379038613,0.5161290322580645,0.7111111111111111,"VAE on mel, classifier on z",5717907,94.33485974001815

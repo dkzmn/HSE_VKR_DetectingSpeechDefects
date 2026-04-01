@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_18_openl3,OpenL3 + SVM,SVM (RBF),0.7793764988009593,0.7499739311783107,0.6642335766423357,0.8170606776989756,0.6546762589928058,0.674074074074074,"embedding=OpenL3, agg=mean+max",,249.65825802399195

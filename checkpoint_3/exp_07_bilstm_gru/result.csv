@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_07_bilstm_gru,BiLSTM-GRU на log-mel,BiLSTM-GRU (log-mel),0.7482014388489209,0.7084362701684057,0.6007604562737643,0.7494352508536904,0.6171875,0.5851851851851851,"n_mels=80, max_frames=320, lstm=128, gru=64, epochs=50",277010,49.581867769011296

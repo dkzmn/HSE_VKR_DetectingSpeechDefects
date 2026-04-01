@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_22_swin_mel,Swin on mel,Swin Tiny,0.7697841726618705,0.7177824149794145,0.5966386554621849,0.812582085631731,0.6893203883495146,0.5259259259259259,"mel resized 224x224, timm",27520908,264.87317971800076

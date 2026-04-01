@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_14_hubert_resnet_transformer,HuBERT+ResNet50+Transformer,HybridModuleTransformer,0.7577937649880095,0.6976373543537723,0.5627705627705628,0.8197268190175991,0.6770833333333334,0.48148148148148145,"Full hybrid: HuBERT-LSTM 768 + ResNet50 2048, 4-layer Transformer, 10s",,17916.805798015004

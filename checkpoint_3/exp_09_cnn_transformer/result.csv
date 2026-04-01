@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_09_cnn_transformer,CNN+Transformer (AutoDEAP-style),CNN+Transformer (mel),0.47002398081534774,0.46942594117206793,0.45161290322580644,0.5337273443656422,0.33955223880597013,0.674074074074074,"n_mels=80, n_frames=320, d_model=128, 2 layers, epochs=50",949586,169.32868706801673

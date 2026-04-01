@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_23_multilingual_framework,Multilingual XLS-R framework,XLS-R embedding + SVM,0.7913669064748201,0.7473835934072821,0.6419753086419753,0.8326503808773312,0.7222222222222222,0.5777777777777777,"xlsr300m/grid={'clf__C': 3.0, 'clf__gamma': 'scale'}",,

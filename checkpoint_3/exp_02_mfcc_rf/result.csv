@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_mfcc_02_rf,Random Forest на MFCC,Random Forest,0.7386091127098321,0.6787524118482708,0.540084388185654,0.7342001576044129,0.6274509803921569,0.4740740740740741,"GridSearchCV {'max_depth': 10, 'min_samples_leaf': 10, 'n_estimators': 400}",,1377.4124051880208

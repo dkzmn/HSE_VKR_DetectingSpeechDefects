@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_10_dsscnet,DSSCNet (SE+Res) на mel,DSSCNet,0.7458033573141487,0.7160422448350293,0.624113475177305,0.7973995271867613,0.5986394557823129,0.6518518518518519,"n_mels=80, n_frames=320, base_c=64, 4 SE-Res blocks, epochs=50",304306,55.54008174300543

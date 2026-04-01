@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_20_vocal_tract,Vocal tract + SVM,SVM (RBF),0.6546762589928058,0.6283422459893049,0.5294117647058824,0.7005910165484633,0.47368421052631576,0.6,"vocal tract (rms,zcr,F0,centroid,rolloff,bw + optional jitter/shimmer/formants)",,4.6410350760002075

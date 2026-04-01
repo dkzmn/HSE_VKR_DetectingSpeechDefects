@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_05_2d_cnn,2D CNN на mel-спектрограмме,2D CNN (mel),0.7074340527577938,0.6731806968855998,0.5673758865248227,0.7530864197530864,0.54421768707483,0.5925925925925926,"n_mels=80, n_frames=320, epochs=50, batch=32",440018,57.08188147502369

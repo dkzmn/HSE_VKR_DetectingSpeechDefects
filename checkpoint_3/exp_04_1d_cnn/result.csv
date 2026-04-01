@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_04_1d_cnn,1D CNN на waveform,WaveformCNN1d,0.7410071942446043,0.6886510701841713,0.5609756097560976,0.7644602048857367,0.6216216216216216,0.5111111111111111,"raw waveform 10s 16kHz, 4 blocks Conv1d 32-64-128-256",133554,1176.3040424720093

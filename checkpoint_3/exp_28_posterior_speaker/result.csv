@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_28_posterior_speaker_repr,Posterior-based speaker representations,UBM posterior supervector + LogReg,0.7266187050359713,0.7023815486326755,0.6174496644295302,0.7773574993433149,0.5644171779141104,0.6814814814814815,"ubm_k=16,posterior_supervector,grid={'clf__C': 0.1}",,

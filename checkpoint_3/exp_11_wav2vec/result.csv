@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_11_wav2vec,wav2vec2 + head,Wav2Vec2 (freeze),0.7529976019184652,0.7173997433957298,0.6171003717472119,0.7907013396375099,0.6194029850746269,0.6148148148148148,"facebook/wav2vec2-base, encoder frozen, 10s, epochs=50",94372498,9565.818942505983

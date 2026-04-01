@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_16_kuo_mfcc_cnn,Kuo MFCC 2D CNN,MFCC+delta 2D CNN,0.7338129496402878,0.6728579606895235,0.5316455696202531,0.7635145784081954,0.6176470588235294,0.4666666666666667,"MFCC+delta as 2ch image, 2D CNN",399346,57.49371298000915

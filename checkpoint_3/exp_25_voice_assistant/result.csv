@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_25_voice_assistant_proxy,Voice assistant multistage pipeline,SVM (RBF),0.7338129496402878,0.6977728154198742,0.5934065934065934,0.7860388757551877,0.5869565217391305,0.6,"voice_assistant_multistage/grid={'clf__C': 1.0, 'clf__gamma': 'scale'}",,

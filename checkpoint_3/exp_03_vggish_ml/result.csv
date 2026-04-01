@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_03_vggish_ml,VGGish + SVM,VGGish (agg) + SVC (RBF),0.7218225419664268,0.6923840048840049,0.5972222222222222,0.7890202258996585,0.5620915032679739,0.6370370370370371,"VGGish mean+std per file (256 dim), GridSearchCV {'clf__C': 1.0, 'clf__gamma': 'scale'}",,94.53034989300068
