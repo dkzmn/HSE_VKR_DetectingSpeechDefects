@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,notes,num_params,train_time_sec
+exp_36_whisper_medium_svm,Whisper medium encoder SVM,Whisper medium embedding + SVM,0.8393285371702638,0.8147096859767218,0.7471698113207547,0.8944575781455214,0.7615384615384615,0.7333333333333333,"whisper_small_encoder/grid={'clf__C': 1.0, 'clf__gamma': 'scale'}",,7699.515863969

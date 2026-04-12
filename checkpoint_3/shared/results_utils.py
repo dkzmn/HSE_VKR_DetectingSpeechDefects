@@ -16,6 +16,7 @@ def save_result_csv(
     notes="",
     num_params=None,
     train_time_sec=None,
+    append=False
 ):
     result_path = exp_dir / "result.csv"
     columns = [
@@ -46,8 +47,10 @@ def save_result_csv(
         "num_params": num_params,
         "train_time_sec": train_time_sec,
     }
-    with open(result_path, "w", newline="", encoding="utf-8") as f:
+    access_type = "a" if append else "w"
+    with open(result_path, access_type, newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=columns)
-        w.writeheader()
+        if not append:
+            w.writeheader()
         w.writerow(row)
     return result_path
