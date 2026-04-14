@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/352146158511670118/b81b833f2bb74746bb66153775eb7022/artifacts
+end_time: 1776067328947
+entry_point_name: ''
+experiment_id: '352146158511670118'
+lifecycle_stage: active
+run_id: b81b833f2bb74746bb66153775eb7022
+run_name: exp_hubert_lstm
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776067052748
+status: 3
+tags: []
+user_id: dk

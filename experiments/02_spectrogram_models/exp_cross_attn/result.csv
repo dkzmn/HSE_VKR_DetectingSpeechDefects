@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_cross_attn,CNN-BiLSTM + Cross-Attention + SpecAugment,CrossAttnCNNBiLSTM,0.7649880095923262,0.737473018809744,0.6524822695035462,0.8088258471237195,0.6258503401360545,0.6814814814814815,0.47,,,SpecAugment + holdout | thr=0.47 | d_model=128 lstm_h=64,718546,634.3885314590007

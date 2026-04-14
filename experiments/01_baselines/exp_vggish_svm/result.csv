@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_vggish_svm,VGGish + SVM (baseline),VGGish mean+std + SVM RBF,0.7146282973621103,0.6986573390901969,0.6292834890965732,0.8049514053060152,0.543010752688172,0.7481481481481481,0.276,0.03055106052417301,0.0538930107412646,"5-fold CV + holdout | best={'clf__C': 1.0, 'clf__gamma': 'scale'} | thr=0.28",,604.9812340000008

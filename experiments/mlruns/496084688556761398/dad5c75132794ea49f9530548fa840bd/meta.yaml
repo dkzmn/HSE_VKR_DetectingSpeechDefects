@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/496084688556761398/dad5c75132794ea49f9530548fa840bd/artifacts
+end_time: 1776065516370
+entry_point_name: ''
+experiment_id: '496084688556761398'
+lifecycle_stage: active
+run_id: dad5c75132794ea49f9530548fa840bd
+run_name: exp_dsscnet
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776064725087
+status: 3
+tags: []
+user_id: dk

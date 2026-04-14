@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_hubert_lstm,HuBERT (frozen) + BiLSTM (предвычисленные эмбеддинги),HuBERT-base + BiLSTM head,0.8057553956834532,0.7818657367044464,0.7096774193548387,0.8496453900709221,0.6875,0.7333333333333333,0.55,,,Предвычисленные эмбеддинги | thr=0.55 | lstm_hidden=128,920082,273.3010320840003

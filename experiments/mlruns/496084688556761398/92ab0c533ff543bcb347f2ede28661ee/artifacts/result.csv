@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_bilstm_gru,BiLSTM-GRU на log-mel + SpecAugment,BiLSTM-GRU,0.7218225419664268,0.6758777807558296,0.5538461538461539,0.7664302600472813,0.576,0.5333333333333333,0.45,,,SpecAugment + holdout | thr=0.45,277010,499.99961475000055

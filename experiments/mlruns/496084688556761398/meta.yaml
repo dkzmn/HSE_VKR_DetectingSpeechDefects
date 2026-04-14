@@ -1,0 +1,8 @@
+artifact_location: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/496084688556761398
+creation_time: 1776062941546
+experiment_id: '496084688556761398'
+last_update_time: 1776062941546
+lifecycle_stage: active
+name: 02_spectrogram_models
+trace_location: null
+workspace: default

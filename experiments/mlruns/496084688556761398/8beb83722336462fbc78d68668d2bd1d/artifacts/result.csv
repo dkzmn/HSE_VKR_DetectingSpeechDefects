@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_fluentnet,FluentNet (waveform + mel) + SpecAugment,FluentNetClassifier,0.7889688249400479,0.7497954508263787,0.6507936507936508,0.8126608878381928,0.7008547008547008,0.6074074074074074,0.55,,,SpecAugment + holdout | thr=0.55 | branch_dim=128,160626,841.4876679999998

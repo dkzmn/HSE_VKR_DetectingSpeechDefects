@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_dsscnet,DSSCNet (SE+Res) на mel + SpecAugment,DSSCNet,0.7362110311750599,0.7101678208562907,0.6232876712328768,0.8067244549514052,0.5796178343949044,0.674074074074074,0.41,,,SpecAugment + holdout | thr=0.41 | n_mels=80 frames=320,304306,786.3902851250004

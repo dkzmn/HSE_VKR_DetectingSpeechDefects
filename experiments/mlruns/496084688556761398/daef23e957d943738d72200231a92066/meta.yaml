@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/496084688556761398/daef23e957d943738d72200231a92066/artifacts
+end_time: 1776064405280
+entry_point_name: ''
+experiment_id: '496084688556761398'
+lifecycle_stage: active
+run_id: daef23e957d943738d72200231a92066
+run_name: exp_cross_attn
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776063511973
+status: 3
+tags: []
+user_id: dk
