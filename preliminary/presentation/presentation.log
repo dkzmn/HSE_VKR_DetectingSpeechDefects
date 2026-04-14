@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.10)  14 APR 2026 04:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.10)  14 APR 2026 09:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1038,13 +1038,13 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 Here is how much of TeX's memory you used:
  23676 strings out of 467525
  450469 string characters out of 5418982
- 837913 words of memory out of 5000000
+ 837914 words of memory out of 5000000
  52058 multiletter control sequences out of 15000+600000
  650853 words of font info for 91 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,11n,123p,475b,537s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfss1728.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx0900.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb>
-Output written on presentation.pdf (11 pages, 240617 bytes).
+Output written on presentation.pdf (11 pages, 240366 bytes).
 PDF statistics:
  158 PDF objects out of 1000 (max. 8388607)
  106 compressed objects within 2 object streams

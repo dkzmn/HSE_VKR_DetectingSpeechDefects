@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1776128938.02596 "/Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/preliminary/presentation/presentation.tex" "presentation.pdf" "presentation" 1776128939.12683 0
+["pdflatex"] 1776147707.05063 "/Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/preliminary/presentation/presentation.tex" "presentation.pdf" "presentation" 1776147707.82433 0
   "../../experiments/dataset_overview.png" 1776116877.62811 61408 9c61014201dcaa8cd8404750c0e7f89a ""
-  "/Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/preliminary/presentation/presentation.tex" 1776128937.81555 11015 f2857ac4cc8efaf0d988ac96fcaeeb8a ""
+  "/Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/preliminary/presentation/presentation.tex" 1776147706.82641 10935 3bc9292919a56fceec3b6cbfb3763e7a ""
   "/Users/dk/Library/texlive/2026/texmf-var/fonts/tfm/lh/lh-t2a/lass0500.tfm" 1776105645.29969 3344 04cc4fceacac9c26311c189d8cf8dfa8 ""
   "/Users/dk/Library/texlive/2026/texmf-var/fonts/tfm/lh/lh-t2a/lass0600.tfm" 1776105619.90503 3336 ffa077eca1169d40eee1410535cc0504 ""
   "/Users/dk/Library/texlive/2026/texmf-var/fonts/tfm/lh/lh-t2a/lass0800.tfm" 1776105637.65962 3264 26b079dff50e667b3da4d5604970d303 ""
@@ -236,10 +236,10 @@
   "/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1775770724 5573038 b99aad5e4898a9034e953632f940512b ""
   "/usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt" 1775770648 3636772 5b3065189972ad875200831f36c55fe2 ""
   "/usr/local/texlive/2026/texmf.cnf" 1774209515 577 648cd9f92f9c0eac486f4c71c85cfbbe ""
-  "presentation.aux" 1776128939.01968 1989 60e2845a84e5538fd0ccea4e453939f9 "pdflatex"
-  "presentation.nav" 1776128939.02155 1202 a971439ba5eedf62b158aa4c3f07763d "pdflatex"
-  "presentation.out" 1776128938.67505 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "presentation.tex" 1776128937.81555 11015 f2857ac4cc8efaf0d988ac96fcaeeb8a ""
+  "presentation.aux" 1776147707.74603 1989 60e2845a84e5538fd0ccea4e453939f9 "pdflatex"
+  "presentation.nav" 1776147707.74664 1202 a971439ba5eedf62b158aa4c3f07763d "pdflatex"
+  "presentation.out" 1776147707.4789 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "presentation.tex" 1776147706.82641 10935 3bc9292919a56fceec3b6cbfb3763e7a ""
   (generated)
   "presentation.aux"
   "presentation.log"
