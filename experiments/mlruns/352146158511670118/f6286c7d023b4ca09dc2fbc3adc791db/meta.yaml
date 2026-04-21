@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/352146158511670118/f6286c7d023b4ca09dc2fbc3adc791db/artifacts
+end_time: 1776802149691
+entry_point_name: ''
+experiment_id: '352146158511670118'
+lifecycle_stage: active
+run_id: f6286c7d023b4ca09dc2fbc3adc791db
+run_name: exp_whisper_dysarthria_svm
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776795857735
+status: 3
+tags: []
+user_id: dk

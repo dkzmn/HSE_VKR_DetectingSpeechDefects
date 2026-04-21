@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_whisper_dysarthria_svm,Whisper (Russian dysarthria finetune) + SVM,qymyz/whisper-russian-dysarthria (frozen) + SVM RBF,0.7985611510791367,0.7725572697522207,0.6956521739130435,0.8762280010506961,0.6808510638297872,0.7111111111111111,0.296,0.026705813120898623,0.01916926520692876,"5-fold CV + holdout | best={'clf__C': 2.0, 'clf__gamma': 'scale'} | thr=0.30",,3896.1539364360015

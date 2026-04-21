@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/352146158511670118/3e79b3eb95724970835b13d6740aa18f/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '352146158511670118'
+lifecycle_stage: active
+run_id: 3e79b3eb95724970835b13d6740aa18f
+run_name: exp_wav2vec_svm
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776779451761
+status: 1
+tags: []
+user_id: dk

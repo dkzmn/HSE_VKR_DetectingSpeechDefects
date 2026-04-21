@@ -1,0 +1,2 @@
+experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
+exp_wav2vec_svm,Wav2Vec2-base (frozen) + SVM,Wav2Vec2-base (frozen) + SVM RBF,0.7865707434052758,0.7576736988501694,0.673992673992674,0.8162332545311268,0.6666666666666666,0.6814814814814815,0.346,0.034890624012770724,0.03091832269542487,"5-fold CV + holdout | best={'clf__C': 2.0, 'clf__gamma': 'scale'} | thr=0.35",,3997.071805814
