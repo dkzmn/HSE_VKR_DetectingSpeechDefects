@@ -393,3 +393,13 @@ def build_feature_matrix(paths, extractor, n_jobs=-1):
     except Exception:
         rows = [extractor(p) for p in paths]
     return np.stack(rows)
+
+
+def get_durations(paths) -> np.ndarray:
+    """Возвращает длительности (сек) для массива путей из dataset.csv."""
+    df = pd.read_csv(config.DATASET_CSV, encoding="utf-8")
+    dur_map = {
+        str(config.DATA_DIR / row["dir"] / row["filename"]): row["duration"]
+        for _, row in df.iterrows()
+    }
+    return np.array([dur_map.get(str(p), 0.0) for p in paths], dtype=np.float32)
