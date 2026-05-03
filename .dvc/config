@@ -1,5 +1,12 @@
 [core]
-    remote = yandex_s3
+    remote = http_yandex
 ['remote "yandex_s3"']
     url = s3://detecting-speech-defects-data
     endpointurl = https://storage.yandexcloud.net
+    region = ru-central1
+    access_key_id = anon
+    secret_access_key = anon
+['remote "http_yandex"']
+    url = https://storage.yandexcloud.net/detecting-speech-defects-data
+    read_timeout = 120
+    connect_timeout = 60
