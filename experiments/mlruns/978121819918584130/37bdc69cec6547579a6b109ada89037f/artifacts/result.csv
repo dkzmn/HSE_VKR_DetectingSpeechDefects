@@ -1,2 +1,0 @@
-experiment_id,experiment_name,model,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,cv_f1_bad_std,cv_f1_macro_std,notes,num_params,train_time_sec
-exp_mfcc_svm,MFCC + SVM (baseline),SVM RBF на MFCC stats,0.7379807692307693,0.7163003422364873,0.6378737541528239,0.7943324107025175,0.5783132530120482,0.7111111111111111,0.31,0.018196724678659477,0.028012132761801065,"5-fold CV + holdout | best_params={'clf__C': 1.0, 'clf__gamma': 'scale'} | cv_thr=0.31",,37.92257854099444
