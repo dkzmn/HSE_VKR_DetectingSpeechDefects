@@ -32,9 +32,16 @@ _COLUMNS = [
     "roc_auc",
     "precision_bad",
     "recall_bad",
-    "threshold",          # оптимальный порог (nan если не оптимизировался)
-    "cv_f1_bad_std",      # std F1-bad по фолдам (nan для одиночного прогона)
-    "cv_f1_macro_std",    # std F1-macro по фолдам
+    "threshold",              # оптимальный порог (nan если не оптимизировался)
+    "embed_dim",              # размерность аудио-эмбеддинга (без мета-признаков)
+    "embed_dim_note",         # краткое объяснение: модель, агрегация
+    "cv_accuracy_std",        # std по фолдам (nan для одиночного прогона)
+    "cv_f1_macro_std",
+    "cv_f1_bad_std",
+    "cv_roc_auc_std",
+    "cv_precision_bad_std",
+    "cv_recall_bad_std",
+    "cv_threshold_std",
     "notes",
     "num_params",
     "train_time_sec",
@@ -53,15 +60,24 @@ def save_result_csv(
     precision_bad: float = None,
     recall_bad: float = None,
     threshold: float = None,
-    cv_f1_bad_std: float = None,
+    embed_dim: int = None,
+    embed_dim_note: str = None,
+    cv_accuracy_std: float = None,
     cv_f1_macro_std: float = None,
+    cv_f1_bad_std: float = None,
+    cv_roc_auc_std: float = None,
+    cv_precision_bad_std: float = None,
+    cv_recall_bad_std: float = None,
+    cv_threshold_std: float = None,
     notes: str = "",
     num_params: int = None,
     train_time_sec: float = None,
+    append: bool = False,
 ) -> Path:
     """
     Сохраняет результат одного эксперимента в <exp_dir>/result.csv.
-    Перезаписывает файл при каждом вызове (не append).
+    append=False (по умолчанию): перезаписывает файл.
+    append=True: добавляет строку без заголовка (для мульти-модельных ноутбуков).
     """
     result_path = exp_dir / "result.csv"
     row = {
@@ -75,15 +91,24 @@ def save_result_csv(
         "precision_bad": precision_bad,
         "recall_bad": recall_bad,
         "threshold": threshold,
-        "cv_f1_bad_std": cv_f1_bad_std,
+        "embed_dim": embed_dim,
+        "embed_dim_note": embed_dim_note,
+        "cv_accuracy_std": cv_accuracy_std,
         "cv_f1_macro_std": cv_f1_macro_std,
+        "cv_f1_bad_std": cv_f1_bad_std,
+        "cv_roc_auc_std": cv_roc_auc_std,
+        "cv_precision_bad_std": cv_precision_bad_std,
+        "cv_recall_bad_std": cv_recall_bad_std,
+        "cv_threshold_std": cv_threshold_std,
         "notes": notes,
         "num_params": num_params,
         "train_time_sec": train_time_sec,
     }
-    with open(result_path, "w", newline="", encoding="utf-8") as f:
+    mode = "a" if append else "w"
+    with open(result_path, mode, newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=_COLUMNS)
-        w.writeheader()
+        if not append:
+            w.writeheader()
         w.writerow(row)
 
     # --- MLflow: логируем если есть активный run ---
@@ -144,8 +169,13 @@ def save_cv_result(
         precision_bad=cv_agg.get("precision_bad_mean"),
         recall_bad=cv_agg.get("recall_bad_mean"),
         threshold=cv_agg.get("threshold_mean"),
-        cv_f1_bad_std=cv_agg.get("f1_bad_std"),
+        cv_accuracy_std=cv_agg.get("accuracy_std"),
         cv_f1_macro_std=cv_agg.get("f1_macro_std"),
+        cv_f1_bad_std=cv_agg.get("f1_bad_std"),
+        cv_roc_auc_std=cv_agg.get("roc_auc_std"),
+        cv_precision_bad_std=cv_agg.get("precision_bad_std"),
+        cv_recall_bad_std=cv_agg.get("recall_bad_std"),
+        cv_threshold_std=cv_agg.get("threshold_std"),
         notes=notes,
         num_params=num_params,
         train_time_sec=train_time_sec,

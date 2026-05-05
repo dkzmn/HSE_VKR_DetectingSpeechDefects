@@ -1,14 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Единая функция оценки для всех экспериментов.
-
-Ключевые исправления по сравнению с checkpoint_3:
-  1. Оптимизация порога классификации по F1-bad на валидационной выборке
-     (вместо фиксированного threshold=0.5 для всех моделей).
-  2. Все метрики считаются одной функцией — нет расхождений между экспериментами.
-  3. Поддержка CV: evaluate_cv_folds принимает список результатов фолдов
-     и возвращает mean ± std по каждой метрике.
-"""
 from __future__ import annotations
 
 import numpy as np
@@ -24,23 +13,15 @@ from sklearn.metrics import (
 from . import config
 
 
-# ---------------------------------------------------------------------------
-# Оптимизация порога
-# ---------------------------------------------------------------------------
-
 def find_optimal_threshold(y_true: np.ndarray, y_proba: np.ndarray) -> float:
     """
     Ищет порог в config.THRESHOLD_GRID, максимизирующий F1-bad на переданной выборке.
-    Вызывать только на ВАЛИДАЦИОННОМ множестве, а потом применять порог на ТЕСТОВОМ.
 
-    Parameters
-    ----------
+    Parameters:
     y_true : массив истинных меток (0/1)
     y_proba : массив вероятностей класса BAD (0..1)
 
-    Returns
-    -------
-    Оптимальный порог (float)
+    Returns: Оптимальный порог (float)
     """
     best_thr, best_f1 = 0.5, -1.0
     for thr in config.THRESHOLD_GRID:
@@ -52,10 +33,6 @@ def find_optimal_threshold(y_true: np.ndarray, y_proba: np.ndarray) -> float:
     return best_thr
 
 
-# ---------------------------------------------------------------------------
-# Основная функция оценки
-# ---------------------------------------------------------------------------
-
 def evaluate(
     y_true: np.ndarray,
     y_proba: np.ndarray,
@@ -65,16 +42,13 @@ def evaluate(
     """
     Вычисляет полный набор метрик для одного прогона.
 
-    Parameters
-    ----------
+    Parameters:
     y_true     : истинные метки
     y_proba    : вероятности класса BAD
-    threshold  : порог бинаризации (по умолчанию 0.5; для лучших результатов
-                 передавать порог, найденный find_optimal_threshold на val-выборке)
+    threshold  : порог (по умолчанию 0.5)
     verbose    : печатать ли classification_report
 
-    Returns
-    -------
+    Returns:
     dict с ключами: accuracy, f1_macro, f1_bad, roc_auc,
                     precision_bad, recall_bad, threshold
     """
@@ -109,10 +83,6 @@ def evaluate(
     }
 
 
-# ---------------------------------------------------------------------------
-# Агрегация результатов кросс-валидации
-# ---------------------------------------------------------------------------
-
 def evaluate_cv_folds(fold_results: list[dict]) -> dict:
     """
     Принимает список dict (один на фолд, из evaluate()) и возвращает
@@ -139,10 +109,8 @@ def evaluate_cv_folds(fold_results: list[dict]) -> dict:
 def print_cv_summary(agg: dict) -> None:
     """Печатает сводную таблицу кросс-валидации."""
     metrics = ["accuracy", "f1_macro", "f1_bad", "roc_auc", "precision_bad", "recall_bad"]
-    print(f"{'Метрика':<20} {'mean':>8} {'± std':>8}")
-    print("-" * 40)
     for m in metrics:
         mean = agg.get(f"{m}_mean", float("nan"))
         std = agg.get(f"{m}_std", float("nan"))
-        print(f"{m:<20} {mean:>8.4f} {std:>8.4f}")
-    print(f"\nСредний оптимальный порог: {agg.get('threshold_mean', 0.5):.2f}")
+        print(f"{m:<15} {mean:>8.4f}±{std:>6.4f}")
+    print(f"Средний threshold: {agg.get('threshold_mean', 0.5):.2f}")

@@ -11,6 +11,18 @@
   5. Все функции нормировки спектрограмм используют только train-статистику
      (mel_mean/mel_std вычисляются на train, применяются к val и test).
 """
+import os
+import warnings
+
+# Python репортит источник как multiprocessing.queues, поэтому фильтруем только по тексту
+warnings.filterwarnings("ignore", ".*pkg_resources.*")
+
+# То же для дочерних процессов GridSearchCV (multiprocessing spawn)
+_suppress = "ignore::UserWarning:pkg_resources"
+if _suppress not in os.environ.get("PYTHONWARNINGS", ""):
+    _existing = os.environ.get("PYTHONWARNINGS", "")
+    os.environ["PYTHONWARNINGS"] = f"{_existing},{_suppress}".lstrip(",")
+
 from pathlib import Path
 from typing import Tuple
 
@@ -52,9 +64,22 @@ def load_dataset_csv():
         return None, None, None
 
 
-def _letter_cols(df: pd.DataFrame):
+def _aux_feature_cols(df: pd.DataFrame) -> list[str]:
+    """Числовые вспомогательные признаки из CSV (буквенные флаги + n_speakers и т.п.).
+
+    Исключает служебные поля и строковые колонки (например, text).
+    Результат используется как дополнительный вход к аудиопризнакам.
+    """
     base = {"filename", "dir", "label", "duration", "path"}
-    return [c for c in df.columns if c not in base]
+    return [
+        c for c in df.columns
+        if c not in base and df[c].dtype != object
+    ]
+
+
+def _letter_cols(df: pd.DataFrame) -> list[str]:
+    """Обратная совместимость — возвращает то же, что _aux_feature_cols."""
+    return _aux_feature_cols(df)
 
 
 # ---------------------------------------------------------------------------
@@ -395,11 +420,21 @@ def build_feature_matrix(paths, extractor, n_jobs=-1):
     return np.stack(rows)
 
 
-def get_durations(paths) -> np.ndarray:
-    """Возвращает длительности (сек) для массива путей из dataset.csv."""
+def _csv_lookup(paths, column: str, default=0.0) -> np.ndarray:
+    """Читает dataset.csv и возвращает значения заданной колонки по путям."""
     df = pd.read_csv(config.DATASET_CSV, encoding="utf-8")
-    dur_map = {
-        str(config.DATA_DIR / row["dir"] / row["filename"]): row["duration"]
+    val_map = {
+        str(config.DATA_DIR / row["dir"] / row["filename"]): row[column]
         for _, row in df.iterrows()
     }
-    return np.array([dur_map.get(str(p), 0.0) for p in paths], dtype=np.float32)
+    return np.array([val_map.get(str(p), default) for p in paths], dtype=np.float32)
+
+
+def get_durations(paths) -> np.ndarray:
+    """Возвращает длительности (сек) для массива путей из dataset.csv."""
+    return _csv_lookup(paths, "duration")
+
+
+def get_n_speakers(paths) -> np.ndarray:
+    """Возвращает количество говорящих для массива путей из dataset.csv."""
+    return _csv_lookup(paths, "n_speakers")

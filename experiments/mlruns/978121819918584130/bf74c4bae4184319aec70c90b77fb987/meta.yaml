@@ -1,0 +1,14 @@
+artifact_uri: /Users/dk/Desktop/ВШЭ/ВКР/HSE_VKR_DetectingSpeechDefects/experiments/mlruns/978121819918584130/bf74c4bae4184319aec70c90b77fb987/artifacts
+end_time: 1777900877968
+entry_point_name: ''
+experiment_id: '978121819918584130'
+lifecycle_stage: active
+run_id: bf74c4bae4184319aec70c90b77fb987
+run_name: exp_mfcc_svm
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777900819630
+status: 3
+tags: []
+user_id: dk

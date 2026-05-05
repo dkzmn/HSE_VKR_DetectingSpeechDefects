@@ -83,6 +83,5 @@ THRESHOLD_GRID = [i / 100 for i in range(10, 90)]  # от 0.10 до 0.89 шаг�
 # ---------------------------------------------------------------------------
 # MLflow
 # ---------------------------------------------------------------------------
-# Локальный tracking server (запуск: mlflow ui --backend-store-uri <MLFLOW_TRACKING_URI>)
-# По умолчанию: папка mlruns/ внутри experiments/
-MLFLOW_TRACKING_URI = str(EXPERIMENTS_DIR / "mlruns")
+# Локальный tracking server (запуск: mlflow ui --backend-store-uri <MLFLOW_TRACKING_URI> --port 5001)
+MLFLOW_TRACKING_URI = "sqlite:///" + str(EXPERIMENTS_DIR / "mlflow.db")

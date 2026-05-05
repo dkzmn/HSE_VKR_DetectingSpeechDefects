@@ -84,6 +84,15 @@ def start_run(run_name: str, group: str):
         return
 
     mlflow.set_tracking_uri(config.MLFLOW_TRACKING_URI)
+
+    # Артефакты в общей папке experiments/mlartifacts/, а не в папке каждого ноутбука
+    artifact_root = str(
+        Path(config.MLFLOW_TRACKING_URI.replace("sqlite:///", "")).parent / "mlartifacts"
+    )
+    client = mlflow.MlflowClient()
+    exp = client.get_experiment_by_name(group)
+    if exp is None:
+        client.create_experiment(group, artifact_location=artifact_root)
     mlflow.set_experiment(group)
 
     with mlflow.start_run(run_name=run_name) as run:
