@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Общая конфигурация экспериментов (папка experiments/).
-Пути относительно корня проекта (HSE_VKR_DetectingSpeechDefects/).
-"""
 from pathlib import Path
 
 # Корень проекта: experiments/shared/ -> experiments/ -> HSE_VKR_...
@@ -18,18 +13,11 @@ METRICS_FILE = EXPERIMENTS_DIR / "metrics_summary.csv"
 # CSV датасета (создаётся checkpoint_3/00_dataset_analysis.ipynb)
 DATASET_CSV = DATA_DIR / "dataset.csv"
 
-# ---------------------------------------------------------------------------
-# Разбиение данных
-# ВАЖНО: test-сплит фиксируется ДО кросс-валидации и используется только
-# для финальной оценки лучшей модели — он не видится при подборе гиперпараметров.
-# ---------------------------------------------------------------------------
-TRAIN_VAL_RATIO = 0.85  # доля train+val (из неё CV)
+TRAIN_VAL_RATIO = 0.85
 TEST_RATIO = 0.15
+TRAIN_RATIO = 0.70
+VAL_RATIO = 0.15
 RANDOM_STATE = 42
-
-# # Совместимость со старым интерфейсом
-# TRAIN_RATIO = 0.70
-# VAL_RATIO = 0.15
 
 # ---------------------------------------------------------------------------
 # Аудио (по умолчанию)
