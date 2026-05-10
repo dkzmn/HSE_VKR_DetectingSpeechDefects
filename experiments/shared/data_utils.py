@@ -1,36 +1,19 @@
 # -*- coding: utf-8 -*-
-"""
-Утилиты загрузки данных и извлечения признаков.
-
-Изменения по сравнению с checkpoint_3/shared/data_utils.py:
-  1. get_holdout_split() — сначала отделяем test (holdout), потом CV только на train+val.
-     Это исправляет selection bias: тест не участвует в выборе гиперпараметров.
-  2. get_splits() сохранён для обратной совместимости.
-  3. augment_mel_spectrogram() — SpecAugment (маски по частоте и времени).
-  4. augment_waveform() — гауссовский шум и pitch shift.
-  5. Все функции нормировки спектрограмм используют только train-статистику
-     (mel_mean/mel_std вычисляются на train, применяются к val и test).
-"""
 import os
 import warnings
 
-# Python репортит источник как multiprocessing.queues, поэтому фильтруем только по тексту
 warnings.filterwarnings("ignore", ".*pkg_resources.*")
 
-# То же для дочерних процессов GridSearchCV (multiprocessing spawn)
 _suppress = "ignore::UserWarning:pkg_resources"
 if _suppress not in os.environ.get("PYTHONWARNINGS", ""):
     _existing = os.environ.get("PYTHONWARNINGS", "")
     os.environ["PYTHONWARNINGS"] = f"{_existing},{_suppress}".lstrip(",")
 
 from pathlib import Path
-from typing import Tuple
 
 import numpy as np
 import pandas as pd
 import librosa
-import pywt
-import parselmouth
 from joblib import Parallel, delayed
 from sklearn.model_selection import train_test_split, StratifiedKFold
 
@@ -40,10 +23,6 @@ from . import config
 # ---------------------------------------------------------------------------
 # Загрузка датасета
 # ---------------------------------------------------------------------------
-
-def get_project_root() -> Path:
-    return config.PROJECT_ROOT
-
 
 def load_dataset_csv():
     """
@@ -65,32 +44,27 @@ def load_dataset_csv():
 
 
 def _aux_feature_cols(df: pd.DataFrame) -> list[str]:
-    """Числовые вспомогательные признаки из CSV (буквенные флаги + n_speakers и т.п.).
+    """Числовые вспомогательные признаки из CSV (буквенные флаги + duration и т.п.).
 
-    Исключает служебные поля и строковые колонки (например, text).
+    Исключает служебные поля и строковые колонки.
     Результат используется как дополнительный вход к аудиопризнакам.
     """
-    base = {"filename", "dir", "label", "duration", "path"}
+    base = {"filename", "dir", "label", "path"}
     return [
         c for c in df.columns
         if c not in base and df[c].dtype != object
     ]
 
 
-def _letter_cols(df: pd.DataFrame) -> list[str]:
-    """Обратная совместимость — возвращает то же, что _aux_feature_cols."""
-    return _aux_feature_cols(df)
-
-
 # ---------------------------------------------------------------------------
 # Разбиение данных
 # ---------------------------------------------------------------------------
 
-def get_holdout_split():
+def get_test_split():
     """
     Правильный сплит данных:
 
-      1. Сначала отрезаем HOLDOUT TEST (15%) — он больше не трогается до финальной оценки.
+      1. Сначала отрезаем test (15%) — он не трогается до финальной оценки.
       2. Остаток (85%) — train+val для кросс-валидации.
 
     Возвращает:
@@ -98,7 +72,7 @@ def get_holdout_split():
         paths_test, labels_test, letters_test
     """
     paths, labels, df = load_dataset_csv()
-    letters = df[_letter_cols(df)].values.astype(np.float32)
+    letters = df[_aux_feature_cols(df)].values.astype(np.float32)
 
     idx = np.arange(len(paths))
     idx_trainval, idx_test = train_test_split(
@@ -131,30 +105,6 @@ def get_cv_folds(paths_trainval, labels_trainval, letters_trainval, n_splits=Non
         )
 
 
-def get_splits():
-    """
-    Обратная совместимость с checkpoint_3.
-    Возвращает фиксированный сплит 70/15/15 (без CV).
-    """
-    paths, labels, df = load_dataset_csv()
-    letters = df[_letter_cols(df)].values.astype(np.float32)
-
-    idx = np.arange(len(paths))
-
-    idx_tt, idx_test = train_test_split(
-        idx, test_size=config.TEST_RATIO, stratify=labels, random_state=config.RANDOM_STATE
-    )
-    val_ratio_adj = config.VAL_RATIO / (1 - config.TEST_RATIO)
-    idx_train, idx_val = train_test_split(
-        idx_tt, test_size=val_ratio_adj, stratify=labels[idx_tt], random_state=config.RANDOM_STATE
-    )
-    return (
-        paths[idx_train], paths[idx_val], paths[idx_test],
-        labels[idx_train], labels[idx_val], labels[idx_test],
-        letters[idx_train], letters[idx_val], letters[idx_test],
-    )
-
-
 # ---------------------------------------------------------------------------
 # Загрузка аудио
 # ---------------------------------------------------------------------------
@@ -177,25 +127,6 @@ def load_audio(path, sr=None, mono=True, max_sec=None):
 # ---------------------------------------------------------------------------
 # Аугментация
 # ---------------------------------------------------------------------------
-
-def augment_waveform(y: np.ndarray, sr: int = None, add_noise: bool = True, pitch_shift: bool = True) -> np.ndarray:
-    """
-    Аугментация waveform:
-      - Гауссовский шум (амплитуда config.NOISE_AMPLITUDE).
-      - Pitch shift ±config.PITCH_SHIFT_STEPS полутонов (случайный знак).
-
-    Используется только при обучении (не при валидации/тесте).
-    """
-    sr = sr or config.TARGET_SR
-    y = y.copy()
-    if add_noise:
-        noise = np.random.normal(0, config.NOISE_AMPLITUDE, size=y.shape).astype(np.float32)
-        y = y + noise
-    if pitch_shift:
-        n_steps = np.random.choice([-config.PITCH_SHIFT_STEPS, config.PITCH_SHIFT_STEPS])
-        y = librosa.effects.pitch_shift(y.astype(float), sr=sr, n_steps=n_steps).astype(np.float32)
-    return y
-
 
 def augment_mel_spectrogram(mel: np.ndarray) -> np.ndarray:
     """
@@ -232,7 +163,7 @@ def augment_mel_spectrogram(mel: np.ndarray) -> np.ndarray:
 
 
 # ---------------------------------------------------------------------------
-# Извлечение признаков (те же функции, что в checkpoint_3)
+# Извлечение признаков
 # ---------------------------------------------------------------------------
 
 def extract_mfcc_stats(path, n_mfcc=None, sr=None, hop_length=None, win_length=None):
@@ -260,46 +191,6 @@ def extract_mfcc_stats(path, n_mfcc=None, sr=None, hop_length=None, win_length=N
     return np.concatenate([mean_, std_, mean_d, std_d]).astype(np.float32)
 
 
-def extract_mfcc_sequence(path, n_mfcc=None, sr=None, hop_length=None, max_frames=None):
-    """MFCC последовательность (time, n_mfcc) для RNN."""
-    n_mfcc = n_mfcc or config.N_MFCC
-    sr = sr or config.TARGET_SR
-    hop_length = hop_length or config.HOP_LENGTH
-    y, _ = load_audio(path, sr=sr)
-    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc, hop_length=hop_length)
-    seq = mfcc.T.astype(np.float32)
-    if max_frames is not None:
-        if seq.shape[0] < max_frames:
-            seq = np.pad(seq, ((0, max_frames - seq.shape[0]), (0, 0)), mode="constant")
-        else:
-            seq = seq[:max_frames]
-    return seq
-
-
-def extract_mfcc_image(path, n_mfcc=None, sr=None, hop_length=None, max_frames=None, stack_delta=True):
-    """MFCC + delta как 2-канальное изображение (C, n_mfcc, T)."""
-    n_mfcc = n_mfcc or config.N_MFCC
-    sr = sr or config.TARGET_SR
-    hop_length = hop_length or config.HOP_LENGTH
-    y, _ = load_audio(path, sr=sr)
-    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc, hop_length=hop_length)
-    if max_frames is not None:
-        n = mfcc.shape[1]
-        if n < max_frames:
-            mfcc = np.pad(mfcc, ((0, 0), (0, max_frames - n)))
-        else:
-            mfcc = mfcc[:, :max_frames]
-    if stack_delta:
-        width = min(9, mfcc.shape[1]) if mfcc.shape[1] >= 3 else 3
-        if width % 2 == 0:
-            width -= 1
-        delta = librosa.feature.delta(mfcc, width=width)
-        out = np.stack([mfcc.astype(np.float32), delta.astype(np.float32)], axis=0)
-    else:
-        out = mfcc[np.newaxis, ...].astype(np.float32)
-    return out
-
-
 def extract_mel_spectrogram(path, n_mels=None, sr=None, hop_length=None, max_frames=None, log=True):
     """Мел-спектрограмма (n_mels, T). log=True → dB."""
     n_mels = n_mels or config.N_MELS
@@ -319,98 +210,6 @@ def extract_mel_spectrogram(path, n_mels=None, sr=None, hop_length=None, max_fra
     return mel
 
 
-def extract_cwt_scalogram(path, sr=None, max_frames=None, n_scales=64, wavelet="morl"):
-    """CWT-скалограмма (1, n_scales, T)."""
-    sr = sr or config.TARGET_SR
-    y, _ = load_audio(path, sr=sr)
-    scales = np.arange(1, n_scales + 1, dtype=np.float64)
-    coef, _ = pywt.cwt(y, scales, wavelet)
-    img = np.abs(coef).astype(np.float32)
-    if max_frames is not None:
-        T = img.shape[1]
-        if T < max_frames:
-            img = np.pad(img, ((0, 0), (0, max_frames - T)))
-        else:
-            img = img[:, :max_frames]
-    return img[np.newaxis, ...]
-
-
-def extract_stft_db(path, sr=None, n_fft=2048, hop_length=None, max_frames=None):
-    """STFT magnitude в dB (1, n_fft//2+1, T)."""
-    sr = sr or config.TARGET_SR
-    hop_length = hop_length or config.HOP_LENGTH
-    y, _ = load_audio(path, sr=sr)
-    S = np.abs(librosa.stft(y, n_fft=n_fft, hop_length=hop_length)) ** 2
-    S_db = librosa.power_to_db(S + 1e-10, ref=np.max).astype(np.float32)
-    if max_frames is not None:
-        T = S_db.shape[1]
-        if T < max_frames:
-            S_db = np.pad(S_db, ((0, 0), (0, max_frames - T)),
-                          mode="constant", constant_values=S_db.min())
-        else:
-            S_db = S_db[:, :max_frames]
-    return S_db[np.newaxis, ...]
-
-
-def extract_vocal_tract_features(path, sr=None, hop_length=None):
-    """Признаки голосового тракта: RMS, ZCR, F0, спектральные + jitter/shimmer/форманты."""
-    sr = sr or config.TARGET_SR
-    hop_length = hop_length or config.HOP_LENGTH
-    y, _ = load_audio(path, sr=sr)
-    n_fft = 2048
-
-    rms = librosa.feature.rms(y=y, frame_length=n_fft, hop_length=hop_length)[0]
-    zcr = librosa.feature.zero_crossing_rate(y, frame_length=n_fft, hop_length=hop_length)[0]
-    S = np.abs(librosa.stft(y, n_fft=n_fft, hop_length=hop_length)) ** 2
-    cent = librosa.feature.spectral_centroid(S=S, sr=sr, hop_length=hop_length)[0]
-    rolloff = librosa.feature.spectral_rolloff(S=S, sr=sr, hop_length=hop_length)[0]
-    bandwidth = librosa.feature.spectral_bandwidth(S=S, sr=sr, hop_length=hop_length)[0]
-    f0, _, _ = librosa.pyin(y, fmin=librosa.note_to_hz("C2"), fmax=librosa.note_to_hz("C7"),
-                            sr=sr, hop_length=hop_length)
-    f0_flat = np.nan_to_num(f0, nan=0.0)
-
-    feats = []
-    for arr in [rms, zcr, cent, rolloff, bandwidth, f0_flat]:
-        feats.extend([np.mean(arr), np.std(arr), np.max(arr)])
-    out = np.array(feats, dtype=np.float32)
-
-    snd = parselmouth.Sound(path)
-    pitch_ps = snd.to_pitch(time_step=0.01)
-    f0_ps = pitch_ps.selected_array["frequency"]
-    f0_ps[f0_ps == 0] = np.nan
-    jitter = (
-        np.nanmean(np.abs(np.diff(f0_ps))) / (np.nanmean(f0_ps) + 1e-8)
-        if np.nansum(f0_ps) > 0 else 0.0
-    )
-    intensity = parselmouth.praat.call(snd, "To Intensity", 75, 0.01, True)
-    int_vals = [
-        parselmouth.praat.call(intensity, "Get value at time", t, "Cubic")
-        for t in np.arange(0, snd.duration, 0.01)
-    ]
-    int_vals = np.array([x for x in int_vals if x is not None and not np.isnan(x)])
-    shimmer = (
-        np.mean(np.abs(np.diff(int_vals))) / (np.mean(int_vals) + 1e-8)
-        if len(int_vals) > 1 else 0.0
-    )
-    formants = snd.to_formant_burg(time_step=0.01)
-    F1 = np.array([
-        parselmouth.praat.call(formants, "Get value at time", 1, t, "Hertz", "Linear")
-        for t in np.arange(0, min(0.5, snd.duration), 0.01)
-    ])
-    F1 = F1[~np.isnan(F1)]
-    F2 = np.array([
-        parselmouth.praat.call(formants, "Get value at time", 2, t, "Hertz", "Linear")
-        for t in np.arange(0, min(0.5, snd.duration), 0.01)
-    ])
-    F2 = F2[~np.isnan(F2)]
-    out = np.concatenate([out, [
-        float(F1.mean()) if len(F1) else 0, float(F1.std()) if len(F1) else 0,
-        float(F2.mean()) if len(F2) else 0, float(F2.std()) if len(F2) else 0,
-        jitter, shimmer,
-    ]])
-    return out
-
-
 def build_feature_matrix(paths, extractor, n_jobs=-1):
     """Параллельно строит матрицу признаков: extractor(path) -> вектор."""
     try:
@@ -418,23 +217,3 @@ def build_feature_matrix(paths, extractor, n_jobs=-1):
     except Exception:
         rows = [extractor(p) for p in paths]
     return np.stack(rows)
-
-
-def _csv_lookup(paths, column: str, default=0.0) -> np.ndarray:
-    """Читает dataset.csv и возвращает значения заданной колонки по путям."""
-    df = pd.read_csv(config.DATASET_CSV, encoding="utf-8")
-    val_map = {
-        str(config.DATA_DIR / row["dir"] / row["filename"]): row[column]
-        for _, row in df.iterrows()
-    }
-    return np.array([val_map.get(str(p), default) for p in paths], dtype=np.float32)
-
-
-def get_durations(paths) -> np.ndarray:
-    """Возвращает длительности (сек) для массива путей из dataset.csv."""
-    return _csv_lookup(paths, "duration")
-
-
-def get_n_speakers(paths) -> np.ndarray:
-    """Возвращает количество говорящих для массива путей из dataset.csv."""
-    return _csv_lookup(paths, "n_speakers")

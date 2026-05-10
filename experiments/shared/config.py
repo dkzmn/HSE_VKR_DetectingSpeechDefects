@@ -14,8 +14,6 @@ CLASS_NAMES = ["good", "bad"]
 
 TRAIN_VAL_RATIO = 0.85
 TEST_RATIO = 0.15
-TRAIN_RATIO = 0.70
-VAL_RATIO = 0.15
 RANDOM_STATE = 42
 
 # Аудио
@@ -43,5 +41,3 @@ NOISE_AMPLITUDE = 0.005 # ампл. гауссовского шума
 PITCH_SHIFT_STEPS = 2 # +/- полутона для pitch shift
 
 THRESHOLD_GRID = [i / 100 for i in range(10, 90)]
-
-MLFLOW_TRACKING_URI = "sqlite:///" + str(EXPERIMENTS_DIR / "mlflow.db")
