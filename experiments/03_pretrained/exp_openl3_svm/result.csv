@@ -1,0 +1,2 @@
+experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
+exp_openl3_svm,OpenL3 + SVM,0.7379807692307693,0.7178959156375401,0.6426229508196721,0.8214972980097535,0.5764705882352941,0.725925925925926,0.31,1024,OpenL3 512-dim × 2 (mean+max),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 1.0, 'clf__gamma': 0.001} | thr=0.31",,455.9807255829801
