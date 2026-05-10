@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 BiLSTM + GRU на log-mel спектрограмме.
-Вход: (batch, time, n_mels). BiLSTM → GRU → усреднение по времени → FC.
+Вход: (batch, time, n_mels). BiLSTM  GRU  усреднение по времени  FC.
 
 Модель не изменена по сравнению с checkpoint_3/exp_07_bilstm_gru/model.py.
 """

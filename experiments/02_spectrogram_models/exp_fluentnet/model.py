@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-FluentNet-style: две ветки — raw waveform (1D CNN) и mel-спектрограмма (2D CNN), конкатенация → FC.
+FluentNet-style: две ветки — raw waveform (1D CNN) и mel-спектрограмма (2D CNN), конкатенация  FC.
 Источник: Kourkounakis et al. «FluentNet: End-to-End Detection of Speech Disfluency with Deep Learning». arXiv:2009.11394.
 """
 import torch
@@ -8,7 +8,7 @@ import torch.nn as nn
 
 
 class Conv1DBranch(nn.Module):
-    """Ветка по сырому waveform: 1D свёртки + downsampling → глобальная агрегация."""
+    """Ветка по сырому waveform: 1D свёртки + downsampling  глобальная агрегация."""
 
     def __init__(self, in_len, out_dim=128):
         super().__init__()
@@ -42,7 +42,7 @@ class Conv1DBranch(nn.Module):
 
 
 class Conv2DMelBranch(nn.Module):
-    """Ветка по mel-спектрограмме: 2D CNN → GAP → проекция."""
+    """Ветка по mel-спектрограмме: 2D CNN  GAP  проекция."""
 
     def __init__(self, n_mels, n_frames, out_dim=128):
         super().__init__()

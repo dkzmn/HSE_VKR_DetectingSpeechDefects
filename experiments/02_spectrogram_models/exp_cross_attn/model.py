@@ -4,7 +4,7 @@ CNN-BiLSTM-Transformer с cross-attention для классификации ст
 Источник: «A Hybrid Cross-Attentive CNN-BiLSTM-Transformer Network for Dysarthria Severity Classification».
 Nature Scientific Reports, 2025.
 Вход: мел-спектрограмма (batch, 1, n_mels, T).
-Архитектура: CNN → последовательность → BiLSTM (K, V) → обучаемый Query → cross-attention → FC.
+Архитектура: CNN  последовательность  BiLSTM (K, V)  обучаемый Query  cross-attention  FC.
 """
 import torch
 import torch.nn as nn

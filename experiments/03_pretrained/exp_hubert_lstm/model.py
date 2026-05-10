@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-HuBERT (замороженный) + BiLSTM → FC для бинарной классификации.
+HuBERT (замороженный) + BiLSTM  FC для бинарной классификации.
 Источник: PeerJ 2024 (Hybrid-Module Transformer).
 
 Модель не изменена по сравнению с checkpoint_3/exp_13_hubert/model.py.
@@ -10,7 +10,7 @@ import torch.nn as nn
 
 
 class HubertLSTMClassifier(nn.Module):
-    """HuBERT (frozen) → последовательность (B, T, D) → BiLSTM → mean → Dropout → FC."""
+    """HuBERT (frozen)  последовательность (B, T, D)  BiLSTM  mean  Dropout  FC."""
 
     def __init__(
         self,

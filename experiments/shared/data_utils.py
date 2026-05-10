@@ -167,7 +167,7 @@ def augment_mel_spectrogram(mel: np.ndarray) -> np.ndarray:
 # ---------------------------------------------------------------------------
 
 def extract_mfcc_stats(path, n_mfcc=None, sr=None, hop_length=None, win_length=None):
-    """MFCC → mean+std+delta_mean+delta_std → вектор (n_mfcc*4,)."""
+    """MFCC  mean+std+delta_mean+delta_std  вектор (n_mfcc*4,)."""
     n_mfcc = n_mfcc or config.N_MFCC
     sr = sr or config.TARGET_SR
     hop_length = hop_length or config.HOP_LENGTH
@@ -192,7 +192,7 @@ def extract_mfcc_stats(path, n_mfcc=None, sr=None, hop_length=None, win_length=N
 
 
 def extract_mel_spectrogram(path, n_mels=None, sr=None, hop_length=None, max_frames=None, log=True):
-    """Мел-спектрограмма (n_mels, T). log=True → dB."""
+    """Мел-спектрограмма (n_mels, T). log=True  dB."""
     n_mels = n_mels or config.N_MELS
     sr = sr or config.TARGET_SR
     hop_length = hop_length or config.HOP_LENGTH
