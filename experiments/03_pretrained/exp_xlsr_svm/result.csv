@@ -1,0 +1,2 @@
+experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
+exp_xlsr_svm,XLS-R (wav2vec2-xls-r-300m) + SVM,0.7716346153846154,0.751282293338368,0.6801346801346801,0.8265190457361277,0.6234567901234568,0.7481481481481481,0.3,3072,XLS-R-300M 1024-dim × 3 (mean+std+max),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 1.0, 'clf__gamma': 'scale'} | thr=0.30",,1221.5364550839877
