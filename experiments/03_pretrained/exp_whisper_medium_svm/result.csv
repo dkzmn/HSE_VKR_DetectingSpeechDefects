@@ -1,0 +1,2 @@
+experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
+exp_whisper_medium_svm,Whisper-medium encoder + SVM,0.8413461538461539,0.8169014084507042,0.75,0.9047317780413866,0.7674418604651163,0.7333333333333333,0.38,3072,Whisper-medium 1024-dim × 3 (mean+std+max),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 1.0, 'clf__gamma': 'scale'} | thr=0.38",,1178.0940049170167

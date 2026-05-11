@@ -1,0 +1,2 @@
+experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
+exp_whisper_dysarthria_svm,Whisper-dysarthria encoder + SVM,0.8125,0.7861605377619613,0.7111111111111111,0.8907341505206274,0.7111111111111111,0.7111111111111111,0.35,1536,Whisper-dysarthria (small-based) 512-dim x 3 (mean+std+max),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 1.0, 'clf__gamma': 'scale'} | thr=0.35",,635.1301698340103
