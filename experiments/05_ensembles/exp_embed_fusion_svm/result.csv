@@ -1,0 +1,2 @@
+experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
+exp_embed_fusion_svm,Fusion embeddings: VGGish + HuBERT + Whisper-medium → SVM,0.8389423076923077,0.8129785078272306,0.7432950191570882,0.9078950836957955,0.7698412698412699,0.7185185185185186,0.36,5760,VGGish(384 mean+std+max) + HuBERT(2304 mean+std+max) + Whisper-medium(3072 mean+std+max),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 1.0, 'clf__gamma': 'scale'} | thr=0.36",,2271.179478291946
