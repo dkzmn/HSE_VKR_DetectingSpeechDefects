@@ -1,14 +1,4 @@
-# -*- coding: utf-8 -*-
 import os
-import warnings
-
-warnings.filterwarnings("ignore", ".*pkg_resources.*")
-
-_suppress = "ignore::UserWarning:pkg_resources"
-if _suppress not in os.environ.get("PYTHONWARNINGS", ""):
-    _existing = os.environ.get("PYTHONWARNINGS", "")
-    os.environ["PYTHONWARNINGS"] = f"{_existing},{_suppress}".lstrip(",")
-
 from pathlib import Path
 
 import numpy as np
@@ -20,9 +10,7 @@ from sklearn.model_selection import train_test_split, StratifiedKFold
 from . import config
 
 
-# ---------------------------------------------------------------------------
 # Загрузка датасета
-# ---------------------------------------------------------------------------
 
 def load_dataset_csv():
     """
@@ -56,9 +44,7 @@ def _aux_feature_cols(df: pd.DataFrame) -> list[str]:
     ]
 
 
-# ---------------------------------------------------------------------------
 # Разбиение данных
-# ---------------------------------------------------------------------------
 
 def get_test_split():
     """
@@ -105,9 +91,7 @@ def get_cv_folds(paths_trainval, labels_trainval, letters_trainval, n_splits=Non
         )
 
 
-# ---------------------------------------------------------------------------
 # Загрузка аудио
-# ---------------------------------------------------------------------------
 
 def load_audio(path, sr=None, mono=True, max_sec=None):
     """Загружает WAV, приводит к sr, обрезает/паддит до max_sec."""
@@ -124,9 +108,7 @@ def load_audio(path, sr=None, mono=True, max_sec=None):
     return y, sr
 
 
-# ---------------------------------------------------------------------------
 # Аугментация
-# ---------------------------------------------------------------------------
 
 def augment_mel_spectrogram(mel: np.ndarray) -> np.ndarray:
     """
@@ -162,9 +144,7 @@ def augment_mel_spectrogram(mel: np.ndarray) -> np.ndarray:
     return mel
 
 
-# ---------------------------------------------------------------------------
 # Извлечение признаков
-# ---------------------------------------------------------------------------
 
 def extract_mfcc_stats(path, n_mfcc=None, sr=None, hop_length=None, win_length=None):
     """MFCC  mean+std+delta_mean+delta_std  вектор (n_mfcc*4,)."""

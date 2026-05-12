@@ -1,2 +1,2 @@
 experiment_id,experiment_name,accuracy,f1_macro,f1_bad,roc_auc,precision_bad,recall_bad,threshold,embed_dim,embed_dim_note,notes,num_params,train_time_sec
-exp_vggish_svm,VGGish + SVM (baseline),0.7475961538461539,0.7178859530714133,0.6263345195729537,0.7930407275603006,0.6027397260273972,0.6518518518518519,0.35,256,VGGish 128-dim * 2 (mean+std),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 2.0, 'clf__gamma': 0.001} | thr=0.35",,73.23114774998976
+exp_vggish_svm,VGGish + SVM (baseline),0.7475961538461539,0.7178859530714133,0.6263345195729537,0.7930407275603006,0.6027397260273972,0.6518518518518519,0.35,256,VGGish 128-dim * 2 (mean+std),"GridSearchCV cv=5 + threshold | best_params={'clf__C': 2.0, 'clf__gamma': 0.001} | thr=0.35",,73.67689987499034

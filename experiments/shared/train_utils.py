@@ -1,15 +1,10 @@
-# -*- coding: utf-8 -*-
-from __future__ import annotations
-
 import numpy as np
 import torch
 
 from . import config
 
 
-# ---------------------------------------------------------------------------
 # Воспроизводимость
-# ---------------------------------------------------------------------------
 
 def set_seed(seed: int = 42) -> None:
     np.random.seed(seed)
@@ -18,9 +13,7 @@ def set_seed(seed: int = 42) -> None:
         torch.cuda.manual_seed_all(seed)
 
 
-# ---------------------------------------------------------------------------
 # Early Stopping и LR scheduler
-# ---------------------------------------------------------------------------
 
 class EarlyStopping:
     """Ранняя остановка по val_f1_macro (mode='max') с patience эпох."""
