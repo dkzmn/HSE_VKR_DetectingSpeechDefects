@@ -1,0 +1,4 @@
+HF_TOKEN="" # Для быстрой загрузки моделей с HF
+PERPLEXITY_API_KEY="" # Используется для получения текстов скороговорок
+AWS_ACCESS_KEY_ID="" # Для работы с Yandex S3 по dvc
+AWS_SECRET_ACCESS_KEY="" # -/-
