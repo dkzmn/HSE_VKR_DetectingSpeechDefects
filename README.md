@@ -48,10 +48,9 @@ dvc pull
 cd experiments
 pip install -r requirements.txt
 ```
- - Если dvc ругается на права можно в файле .dvc/config установить в секции 
- ```
-[core]
-    remote = http_yandex
+ - Если `dvc pull` ругается на права можно так:
+```
+dvc pull -r http_yandex
 ```
 
  - После этого можно запускать блокноты из вложенных папок (1 папка - 1 эксперимент)
