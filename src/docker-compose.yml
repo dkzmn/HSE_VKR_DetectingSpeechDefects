@@ -1,0 +1,25 @@
+services:
+  ml_api:
+    build: ./ml_api
+    container_name: speech_ml_api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_DIR=/app/models/whisper_small_finetuned
+      - DEVICE=${DEVICE:-cpu}
+    volumes:
+      - ../models:/app/models:ro
+
+  bot:
+    build: ./bot
+    container_name: speech_bot
+    depends_on:
+      - ml_api
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - ADMIN_IDS=${ADMIN_IDS:-}
+      - DB_PATH=/app/data/app.db
+      - ML_API_URL=http://ml_api:8000/score
+    volumes:
+      - ./data:/app/data
+      - ../data/tongue_twisters.csv:/app/data/tongue_twisters.csv:ro
