@@ -1,0 +1,15 @@
+services:
+  ml_api:
+    build:
+      context: ./ml_api
+      dockerfile: Dockerfile.gpu
+    environment:
+      - MODEL_DIR=/app/models/whisper_small_finetuned
+      - DEVICE=${DEVICE:-cuda}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

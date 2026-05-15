@@ -21,9 +21,11 @@ src/
 ├── ml_api/
 │   ├── main.py         # FastAPI-эндпоинты и инференс
 │   ├── requirements.txt
-│   └── Dockerfile
+│   ├── Dockerfile      # CPU-образ (python:3.11-slim)
+│   └── Dockerfile.gpu  # GPU-образ (nvidia/cuda:12.1 + CUDA-сборка torch)
 ├── data/               # SQLite и аудиозаписи (создаётся автоматически)
 ├── docker-compose.yml
+├── docker-compose.gpu.yml  # GPU-override (deploy.resources + Dockerfile.gpu)
 └── .env
 ```
 
@@ -32,14 +34,35 @@ src/
 1. Скопировать `.env.example` в `.env` и заполнить переменные.
 2. Убедиться, что папка `../models/whisper_small_finetuned/` содержит `best_ckpt.pt` и `threshold.json`.
 3. Скороговорки берутся из `../data/tongue_twisters.csv` автоматически при первом запуске.
-4. Если  нет, то нужно сделать 
+4. Если нет, то нужно сделать:
    ```
    dvc pull -r http_yandex
    ```
-4. Запустить:
+5. Запустить (CPU):
    ```
    docker compose up --build
    ```
+
+### Запуск с GPU
+
+Требования: NVIDIA GPU, установленные [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) и драйверы.
+
+```
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+```
+
+GPU-образ (`Dockerfile.gpu`) основан на `nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04` и устанавливает CUDA-сборку PyTorch. Переменная `DEVICE` в GPU-режиме по умолчанию `cuda`; можно переопределить в `.env`.
+
+Поведение `ml_api` при разных значениях `DEVICE`:
+
+| `DEVICE`   | Поведение                                            |
+|------------|------------------------------------------------------|
+| `auto`     | авто: CUDA → MPS → CPU (дефолт, если не задан)      |
+| `cuda`     | принудительно GPU (NVIDIA)                           |
+| `mps`      | Apple Silicon GPU                                    |
+| `cpu`      | принудительно CPU                                    |
+
+`GET /health` при запуске с GPU дополнительно возвращает `gpu_name`, `gpu_memory_allocated_mb`, `gpu_memory_reserved_mb`.
 
 ### Переменные окружения (.env)
 
@@ -47,7 +70,7 @@ src/
 |--------------|---------------------------------------|-------------------------|
 | `BOT_TOKEN`  | Токен Telegram-бота                   | `123456:ABC-DEF...`     |
 | `ADMIN_IDS`  | Telegram ID администраторов через `,` | `123456789,987654321`   |
-| `DEVICE`     | Устройство для инференса              | `cpu` или `cuda`        |
+| `DEVICE`     | Устройство для инференса              | `auto`, `cpu`, `cuda`, `mps` |
 
 ### Роли
 
@@ -95,7 +118,7 @@ src/
 - `threshold`, 
 - `model_version`.
 
-`GET /health` — проверка работоспособности.
+`GET /health` — проверка работоспособности. Возвращает `device` (тип устройства), а при CUDA — `gpu_name`, `gpu_memory_allocated_mb`, `gpu_memory_reserved_mb`.
 
 ### Примеры работы бота
 

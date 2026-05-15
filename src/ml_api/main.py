@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import subprocess
 from pathlib import Path
@@ -9,12 +10,34 @@ import torch.nn as nn
 from fastapi import FastAPI, File, Form, UploadFile
 from transformers import WhisperFeatureExtractor, WhisperModel
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 SAMPLE_RATE = 16_000
 MAX_SAMPLES = 10 * SAMPLE_RATE
 ENCODER_DIM = 768
 EXTRA_DIM = 10
 MODEL_DIR = Path(os.getenv("MODEL_DIR", "/app/models/whisper_small_finetuned"))
-DEVICE = torch.device(os.getenv("DEVICE", "cpu"))
+
+
+def _resolve_device() -> torch.device:
+    spec = os.getenv("DEVICE", "auto")
+    if spec != "auto":
+        return torch.device(spec)
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
+
+
+DEVICE = _resolve_device()
+
+if DEVICE.type == "cuda":
+    torch.backends.cudnn.benchmark = True
+    logger.info("GPU: %s (cuda %s)", torch.cuda.get_device_name(DEVICE), torch.version.cuda)
+else:
+    logger.info("Device: %s", DEVICE)
 
 
 class SpeechClassifier(nn.Module):
@@ -79,8 +102,12 @@ def _quality_score(proba: float, threshold: float) -> int:
 
 @app.get("/health")
 def health():
-    # проверка работоспособности сервиса
-    return {"status": "ok"}
+    info: dict = {"status": "ok", "device": DEVICE.type}
+    if DEVICE.type == "cuda":
+        info["gpu_name"] = torch.cuda.get_device_name(DEVICE)
+        info["gpu_memory_allocated_mb"] = round(torch.cuda.memory_allocated(DEVICE) / 1e6, 1)
+        info["gpu_memory_reserved_mb"] = round(torch.cuda.memory_reserved(DEVICE) / 1e6, 1)
+    return info
 
 
 @app.post("/score")
@@ -104,7 +131,14 @@ async def score(
     ).to(DEVICE)
 
     with torch.no_grad():
-        logits = _model(mel, extra)
+        try:
+            logits = _model(mel, extra)
+        except RuntimeError as exc:
+            if "out of memory" in str(exc).lower() and DEVICE.type == "cuda":
+                torch.cuda.empty_cache()
+                logits = _model(mel, extra)
+            else:
+                raise
     proba_bad = torch.softmax(logits, dim=-1)[0, 1].item()
 
     label = "bad" if proba_bad >= THRESHOLD else "good"
