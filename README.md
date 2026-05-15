@@ -77,3 +77,5 @@ dvc pull -r http_yandex
  - Исходники находятся в папке [src/](src/)
  - Описание сервиса: [src/README.md](src/README.md)
  - Сам сервис работает тут: [@SpeechScore_bot](https://t.me/SpeechScore_bot)
+
+## P.S. Дабы не попасть в просак с подлогом, дальнейшая работа с проектом, после сдачи (13.05.2026) ведется в ветке [latest](https://github.com/dkzmn/HSE_VKR_DetectingSpeechDefects/tree/latest)
